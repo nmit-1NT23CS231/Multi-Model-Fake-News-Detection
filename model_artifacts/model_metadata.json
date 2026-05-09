@@ -1,0 +1,21 @@
+{
+  "model_version": "1.0.0",
+  "algorithm": "TF-IDF + Logistic Regression",
+  "train_accuracy": 0.9776,
+  "test_accuracy": 0.9746,
+  "cv_mean": 0.9726,
+  "cv_std": 0.0019,
+  "roc_auc": 0.9968,
+  "train_samples": 28640,
+  "test_samples": 7160,
+  "tfidf_max_features": 50000,
+  "tfidf_ngram_range": [
+    1,
+    2
+  ],
+  "lr_C": 1.0,
+  "labels": {
+    "0": "FAKE",
+    "1": "REAL"
+  }
+}
