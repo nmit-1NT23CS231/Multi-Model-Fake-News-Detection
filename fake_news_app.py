@@ -81,7 +81,7 @@ class FakeNewsDetector:
             )
         self.pipeline = joblib.load(model_path)
         self.metadata = self._load_metadata()
-        print(f"✅ Model loaded  (test accuracy: {self.metadata.get('test_accuracy', 'N/A')})")
+        print(f"Model loaded  (test accuracy: {self.metadata.get('test_accuracy', 'N/A')})")
 
     def _load_metadata(self) -> dict:
         if METADATA_PATH.exists():
@@ -109,7 +109,7 @@ class FakeNewsDetector:
 
         warning = None
         if len(text.strip()) < MIN_TEXT_LEN:
-            warning = f'⚠️  Input is very short ({len(text.strip())} chars). Results may be less accurate.'
+            warning = f'Input is very short ({len(text.strip())} chars). Results may be less accurate.'
 
         cleaned = clean_text(text)
 
@@ -150,7 +150,7 @@ BANNER = r"""
 def print_result(result: dict, text: str = ''):
     """Pretty-print a prediction result to the terminal."""
     if 'error' in result:
-        print(f"\n❌ Error: {result['error']}\n")
+        print(f"\nError: {result['error']}\n")
         return
 
     if result.get('warning'):
@@ -171,7 +171,7 @@ def print_result(result: dict, text: str = ''):
 
     if text:
         preview = textwrap.shorten(text, width=80, placeholder='...')
-        print(f"\n📰 Input Preview : {preview}")
+        print(f"\nInput Preview : {preview}")
 
     print(f"\n{'─'*52}")
     print(f"  {icon} Verdict    : {color}{verdict}{reset}  ({conf:.1f}% confidence)")
@@ -238,7 +238,7 @@ def run_cli(detector: FakeNewsDetector):
 
     while True:
         try:
-            user_input = input("📝 Enter article text (or command): ").strip()
+            user_input = input("Enter article text (or command): ").strip()
         except (EOFError, KeyboardInterrupt):
             print('\n\nGoodbye! 👋')
             break
@@ -249,18 +249,18 @@ def run_cli(detector: FakeNewsDetector):
         cmd = user_input.lower()
 
         if cmd in ('quit', 'exit', 'q'):
-            print('\nGoodbye! 👋\n')
+            print('\nGoodbye!\n')
             break
 
         elif cmd == 'demo':
-            print('\n🎬 Running demo predictions...\n')
+            print('\nRunning demo predictions...\n')
             for item in demo_articles:
                 print(f"[{item['label']}]")
                 result = detector.predict(item['text'])
                 print_result(result, item['text'])
 
         elif cmd == 'batch':
-            print('\n📦 Batch mode — enter articles one per line.')
+            print('\nBatch mode — enter articles one per line.')
             print("Type 'END' on a new line when done.\n")
             lines = []
             while True:
@@ -292,7 +292,7 @@ def run_cli(detector: FakeNewsDetector):
 def run_api(detector: FakeNewsDetector, host='0.0.0.0', port=5000):
     """Start a Flask REST API server for integration with web frontends."""
     if not FLASK_AVAILABLE:
-        print("❌ Flask not installed. Run: pip install flask")
+        print("Flask not installed. Run: pip install flask")
         sys.exit(1)
 
     app = Flask(__name__)
@@ -349,7 +349,7 @@ def run_api(detector: FakeNewsDetector, host='0.0.0.0', port=5000):
         return jsonify({'results': results, 'count': len(results)})
 
     print(BANNER)
-    print(f"🌐 API running at http://{host}:{port}")
+    print(f"API running at http://{host}:{port}")
     print("Endpoints:")
     print(f"  POST http://localhost:{port}/predict")
     print(f"  POST http://localhost:{port}/batch")
