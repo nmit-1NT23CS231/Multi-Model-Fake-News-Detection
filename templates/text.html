@@ -1,0 +1,43 @@
+{% extends "_inner.html" %}
+{% block title %}Check text · authen✅{% endblock %}
+{% block heading %}Check a news article{% endblock %}
+{% block lede %}Paste the full text of an article or post. The more of it you include, the more reliable the result.{% endblock %}
+
+{% block workspace %}
+<section class="panel" aria-labelledby="in-title">
+  <h2 class="panel-title" id="in-title">Your text</h2>
+  <div class="field">
+    <label class="field-label sr-only" for="text-input">Article text</label>
+    <textarea id="text-input" class="textarea" placeholder="Paste an article or social post here"></textarea>
+    <div class="meta-row"><span id="counter">0 words</span><span id="limit-note">Up to 100,000 characters</span></div>
+  </div>
+  <div class="actions">
+    <button class="btn btn--primary" id="check-btn" type="button" {% if not model.ready %}disabled{% endif %}>Check text</button>
+    <button class="btn" id="file-btn" type="button">Load a .txt file</button>
+    <button class="btn" id="clear-btn" type="button">Clear</button>
+    <input type="file" id="file-input" accept=".txt,text/plain" hidden>
+  </div>
+  <div class="examples">
+    <p>No article handy? Try an example.</p>
+    <div class="chips">
+      <button class="btn btn--small" type="button" data-example="0">Central bank news</button>
+      <button class="btn btn--small" type="button" data-example="1">5G rumour</button>
+      <button class="btn btn--small" type="button" data-example="2">Health report</button>
+    </div>
+  </div>
+</section>
+
+<section class="panel result-panel" aria-labelledby="out-title" aria-live="polite">
+  <h2 class="panel-title" id="out-title">Result</h2>
+  <div id="result">
+    <div class="empty">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="12" y="6" width="40" height="52" rx="5"/><path d="M21 20h22M21 30h22M21 40h13"/></svg>
+      <p>Paste an article and choose Check text. The verdict appears here.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block page_script %}
+<script src="{{ url_for('static', filename='js/text.js') }}"></script>
+{% endblock %}

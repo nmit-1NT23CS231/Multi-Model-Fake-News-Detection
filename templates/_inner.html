@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% from "_macros.html" import logo %}
+{% block body %}
+<header class="topbar">
+  <div class="wrap">
+    {{ logo() }}
+    <nav class="nav" aria-label="Checkers">
+      <a href="{{ url_for('text_page') }}"  {% if active == 'text'  %}aria-current="page"{% endif %}>Text</a>
+      <a href="{{ url_for('image_page') }}" {% if active == 'image' %}aria-current="page"{% endif %}>Image</a>
+      <a href="{{ url_for('email_page') }}" {% if active == 'email' %}aria-current="page"{% endif %}>Email</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+  <div class="page-head">
+    <h1>{% block heading %}{% endblock %}</h1>
+    <p>{% block lede %}{% endblock %}</p>
+  </div>
+  {% from "_macros.html" import unavailable %}
+  {{ unavailable(model) }}
+  <div class="workspace">
+    {% block workspace %}{% endblock %}
+  </div>
+</main>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+{% block page_script %}{% endblock %}
+{% endblock %}

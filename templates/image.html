@@ -1,0 +1,41 @@
+{% extends "_inner.html" %}
+{% block title %}Check image · authen✅{% endblock %}
+{% block heading %}Check an image{% endblock %}
+{% block lede %}Upload a photo or graphic to see how likely it is to be AI-generated or faked.{% endblock %}
+
+{% block workspace %}
+<section class="panel" aria-labelledby="in-title">
+  <h2 class="panel-title" id="in-title">Your image</h2>
+
+  <label class="dropzone" id="dropzone">
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 32V10M15 19l9-9 9 9"/><path d="M8 32v6a3 3 0 003 3h26a3 3 0 003-3v-6"/></svg>
+    <strong>Drop an image here, or browse</strong>
+    <small>JPG, PNG, BMP or WebP, up to 15 MB</small>
+    <input type="file" id="file-input" accept="image/jpeg,image/png,image/bmp,image/webp,.jpg,.jpeg,.png,.bmp,.webp">
+  </label>
+
+  <div class="preview" id="preview">
+    <div class="preview-frame"><img id="preview-img" alt="Preview of the image you chose"></div>
+    <div class="file-line"><span id="file-name"></span><button class="btn btn--small" id="swap-btn" type="button">Choose another</button></div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn--primary" id="check-btn" type="button" disabled>Check image</button>
+  </div>
+</section>
+
+<section class="panel result-panel" aria-labelledby="out-title" aria-live="polite">
+  <h2 class="panel-title" id="out-title">Result</h2>
+  <div id="result">
+    <div class="empty">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="10" width="48" height="44" rx="6"/><circle cx="24" cy="26" r="5"/><path d="M8 46l16-14 12 10 8-6 12 10"/></svg>
+      <p>Choose an image and select Check image. The verdict appears here.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block page_script %}
+<script>window.AUTHEN_MODEL_READY = {{ 'true' if model.ready else 'false' }};</script>
+<script src="{{ url_for('static', filename='js/image.js') }}"></script>
+{% endblock %}

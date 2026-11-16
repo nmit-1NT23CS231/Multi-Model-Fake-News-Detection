@@ -1,0 +1,20 @@
+{# The authen check mark: a green rounded square with a white tick (echoes the ✅ in the name) #}
+{% macro mark() -%}
+<svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+  <rect width="100" height="100" rx="22"/>
+  <path class="tick" d="M25 53 L43 71 L76 33"/>
+</svg>
+{%- endmacro %}
+
+{% macro logo(size_class='') -%}
+<a class="logo {{ size_class }}" href="{{ url_for('home') }}" aria-label="authen, home">authen{{ mark() }}</a>
+{%- endmacro %}
+
+{% macro unavailable(model) -%}
+{% if not model.ready %}
+<div class="banner" role="alert">
+  <strong>This checker is not available right now.</strong>
+  {{ model.error or 'The model did not load.' }} See the troubleshooting section of the README.
+</div>
+{% endif %}
+{%- endmacro %}

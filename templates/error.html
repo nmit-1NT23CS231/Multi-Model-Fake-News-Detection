@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% from "_macros.html" import logo %}
+{% block title %}{{ code }} · authen✅{% endblock %}
+{% block body %}
+<header class="topbar"><div class="wrap">{{ logo() }}</div></header>
+<main class="wrap error-page">
+  <h1>{{ code }}</h1>
+  <p>{{ message }}</p>
+  <a class="btn btn--primary" href="{{ url_for('home') }}">Back to authen</a>
+</main>
+{% endblock %}

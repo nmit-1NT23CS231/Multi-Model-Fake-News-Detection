@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% from "_macros.html" import mark %}
+{% block body %}
+<header class="hero">
+  <div class="wrap">
+    <h1 aria-label="authen ✅">authen{{ mark() }}</h1>
+    <p class="hero-lede">Is it real? Check before you trust it.</p>
+    <p class="hero-sub">Pick what you want to check. authen runs it through a model trained for that one job and shows how sure it is.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="cards">
+
+    <a class="card card--text" href="{{ url_for('text_page') }}">
+      <div class="card-art">
+        <svg viewBox="0 0 150 120" fill="none" stroke="#12263f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="30" y="8" width="90" height="104" rx="8" fill="#fff"/>
+          <path d="M44 28h40" stroke-width="5"/>
+          <path d="M44 46h62M44 58h62M44 82h62M44 94h38"/>
+          <rect x="40" y="65" width="70" height="12" rx="3" fill="#ffd9d2" stroke="#c23b2a"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <h2>Text</h2>
+        <p class="card-desc">Paste a news article or post. authen tells you whether it reads like real reporting or fake news.</p>
+        <div class="card-foot">
+          {% if models.text.ready %}<span>{{ models.text.summary }}</span>{% else %}<span class="status status--off">Unavailable</span>{% endif %}
+          <span class="card-cta">Check text</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="card card--image" href="{{ url_for('image_page') }}">
+      <div class="card-art">
+        <svg viewBox="0 0 150 120" fill="none" stroke="#12263f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="22" y="16" width="106" height="88" rx="8" fill="#fff"/>
+          <circle cx="50" cy="40" r="8" fill="#ffd9d2" stroke="#c23b2a"/>
+          <path d="M22 88l32-30 22 20 18-14 34 28" fill="#cdd8ea"/>
+          <path d="M12 34V14h20M138 34V14h-20M12 86v20h20M138 86v20h-20" stroke-width="3.5"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <h2>Image</h2>
+        <p class="card-desc">Upload a photo. authen estimates how likely it is to be AI-generated or faked.</p>
+        <div class="card-foot">
+          {% if models.image.ready %}<span>{{ models.image.summary }}</span>{% else %}<span class="status status--off">Unavailable</span>{% endif %}
+          <span class="card-cta">Check image</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="card card--email" href="{{ url_for('email_page') }}">
+      <div class="card-art">
+        <svg viewBox="0 0 150 120" fill="none" stroke="#12263f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="18" y="26" width="114" height="76" rx="8" fill="#fff"/>
+          <path d="M18 34l57 40 57-40"/>
+          <circle cx="122" cy="26" r="15" fill="#ffd9d2" stroke="#c23b2a"/>
+          <path d="M122 19v9M122 33v.5" stroke="#c23b2a" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <h2>Email</h2>
+        <p class="card-desc">Upload an .eml file or a PDF, or paste the message. authen flags phishing and risky attachments.</p>
+        <div class="card-foot">
+          {% if models.email.ready %}<span>{{ models.email.summary }}</span>{% else %}<span class="status status--off">Unavailable</span>{% endif %}
+          <span class="card-cta">Check email</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>authen gives a probability from a trained model. It is a second opinion, not proof. Confirm important claims with a trusted source, and never act on a flagged message.</p>
+  </div>
+</footer>
+{% endblock %}

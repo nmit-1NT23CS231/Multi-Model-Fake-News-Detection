@@ -1,0 +1,13 @@
+{
+  "best_model": "LinearSVC",
+  "test_accuracy": 0.9947728308767665,
+  "all_results": {
+    "LogisticRegression": 0.9875702780732412,
+    "LinearSVC": 0.9947728308767665,
+    "RandomForest": 0.9901534721166996
+  },
+  "label_map": {
+    "0": "legit",
+    "1": "fake"
+  }
+}

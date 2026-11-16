@@ -1,0 +1,61 @@
+{% extends "_inner.html" %}
+{% block title %}Check email · authen✅{% endblock %}
+{% block heading %}Check an email{% endblock %}
+{% block lede %}Upload the email as a file or paste its text. authen also looks at attachment names and contents.{% endblock %}
+
+{% block workspace %}
+<section class="panel" aria-labelledby="in-title">
+  <h2 class="panel-title" id="in-title">Your email</h2>
+
+  <div class="tabs" role="tablist" aria-label="How to provide the email">
+    <button class="tab" role="tab" id="tab-file" aria-selected="true" aria-controls="pane-file" type="button">Upload file</button>
+    <button class="tab" role="tab" id="tab-paste" aria-selected="false" aria-controls="pane-paste" type="button" tabindex="-1">Paste text</button>
+  </div>
+
+  <div id="pane-file" role="tabpanel" aria-labelledby="tab-file">
+    <label class="dropzone" id="dropzone">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="38" height="26" rx="4"/><path d="M5 15l19 14 19-14"/></svg>
+      <strong>Drop an .eml or PDF here, or browse</strong>
+      <small>In most mail apps: open the message, then save or export it as .eml</small>
+      <input type="file" id="file-input" accept=".eml,.pdf,message/rfc822,application/pdf">
+    </label>
+    <div class="preview" id="preview">
+      <div class="doc-chip">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h13l7 7v21a2 2 0 01-2 2H9a2 2 0 01-2-2V5a2 2 0 012-2z"/><path d="M22 3v7h7"/></svg>
+        <div><strong id="file-name"></strong><div id="file-size" class="meta-row" style="margin:0"></div></div>
+      </div>
+      <div class="file-line"><span></span><button class="btn btn--small" id="swap-btn" type="button">Choose another</button></div>
+    </div>
+  </div>
+
+  <div id="pane-paste" role="tabpanel" aria-labelledby="tab-paste" hidden>
+    <div class="field-grid">
+      <div class="field"><label class="field-label" for="p-from">From (optional)</label><input class="input" id="p-from" type="text" placeholder="sender@example.com"></div>
+      <div class="field"><label class="field-label" for="p-subject">Subject (optional)</label><input class="input" id="p-subject" type="text" placeholder="Subject line"></div>
+    </div>
+    <div class="field">
+      <label class="field-label" for="p-body">Message</label>
+      <textarea class="textarea" id="p-body" placeholder="Paste the body of the email here"></textarea>
+    </div>
+    <button class="btn btn--small" id="example-btn" type="button">Fill with an example</button>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn--primary" id="check-btn" type="button" {% if not model.ready %}disabled{% endif %}>Check email</button>
+  </div>
+</section>
+
+<section class="panel result-panel" aria-labelledby="out-title" aria-live="polite">
+  <h2 class="panel-title" id="out-title">Result</h2>
+  <div id="result">
+    <div class="empty">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="14" width="52" height="38" rx="6"/><path d="M6 20l26 19 26-19"/></svg>
+      <p>Add an email and select Check email. The verdict appears here.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block page_script %}
+<script src="{{ url_for('static', filename='js/email.js') }}"></script>
+{% endblock %}
